@@ -41,9 +41,9 @@ const routes: Array<RouteConfig> = [
         component: () => import(/* webpackChunkName: 'menu' */ '@/views/menu/index.vue')
       },
       {
-        path: '/resource',
-        name: 'resource',
-        component: () => import(/* webpackChunkName: 'resource' */ '@/views/resource/index.vue')
+        path: '/resouce',
+        name: 'resouce',
+        component: () => import(/* webpackChunkName: 'resource' */ '@/views/resouce/index.vue')
       },
       {
         path: '/role',
