@@ -1,14 +1,15 @@
 <template>
   <div class="login">
-    <el-form class="login-from" label-position="top" ref="form" :model="form" label-width="80px">
-      <el-form-item label="手机号">
+    <el-form class="login-from" label-position="top" ref="form" :model="form" :rules="rules" label-width="80px">
+      <el-form-item label="手机号" prop="phone">
         <el-input v-model="form.phone"></el-input>
       </el-form-item>
-      <el-form-item label="密码">
+      <el-form-item label="密码" prop="password">
         <el-input v-model="form.password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button class="login-btn" type="primary" @click="onSubmit">登录</el-button>
+        <el-button class="login-btn" type="primary" :loading="isLoginLoading" @click="onSubmit">
+          登录</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -18,6 +19,7 @@
 import Vue from 'vue'
 import request from '@/utils/request'
 import qs from 'qs'
+import { Form } from 'element-ui'
 
 export default Vue.extend({
   name: 'LoginIndex',
@@ -26,18 +28,48 @@ export default Vue.extend({
       form: {
         phone: '18201288771',
         password: '111111'
-      }
+      },
+      rules: {
+        phone: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { parrern: /^\d{10}$/, message: '请输入正确的手机号', trigger: ' blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' }
+        ]
+      },
+      isLoginLoading: false
     }
   },
   methods: {
     async onSubmit() {
-      const { data } = await request({
-        url: '/front/user/login',
-        method: 'POST',
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        data: qs.stringify(this.form)
-      })
-      console.log(data)
+      try {
+        await (this.$refs.form as Form).validate()
+
+        this.isLoginLoading = true
+
+        const { data } = await request({
+          url: '/front/user/login',
+          method: 'POST',
+          headers: { 'content-type': 'application/x-www-form-urlencoded' },
+          data: qs.stringify(this.form)
+        })
+        // 处理请求结果
+        // 1. 失败，给出提示
+        if (data.state !== 1) {
+          return this.$message.error(data.message)
+        }
+        // 2. 成功，跳转到首页
+        // this.$router.push('/')
+        this.$router.push({
+          name: 'home'
+        })
+        this.$message.success('登录成功')
+      } catch (error) {
+        console.log(error)
+      }
+      this.isLoginLoading = false
     }
   }
 })
