@@ -5,7 +5,7 @@
         <el-input v-model="form.phone"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="form.password"></el-input>
+        <el-input type="password" v-model="form.password"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button class="login-btn" type="primary" :loading="isLoginLoading" @click="onSubmit">
@@ -17,9 +17,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import request from '@/utils/request'
-import qs from 'qs'
 import { Form } from 'element-ui'
+import { login } from '@/services/user'
 
 export default Vue.extend({
   name: 'LoginIndex',
@@ -32,7 +31,7 @@ export default Vue.extend({
       rules: {
         phone: [
           { required: true, message: '请输入手机号', trigger: 'blur' },
-          { parrern: /^\d{10}$/, message: '请输入正确的手机号', trigger: ' blur' }
+          { parrern: /^1\d{10}$/, message: '请输入正确的手机号', trigger: ' blur' }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
@@ -49,25 +48,22 @@ export default Vue.extend({
 
         this.isLoginLoading = true
 
-        const { data } = await request({
-          url: '/front/user/login',
-          method: 'POST',
-          headers: { 'content-type': 'application/x-www-form-urlencoded' },
-          data: qs.stringify(this.form)
-        })
+        const { data } = await login(this.form)
         // 处理请求结果
         // 1. 失败，给出提示
         if (data.state !== 1) {
-          return this.$message.error(data.message)
+          this.$message.error(data.message)
+        } else {
+          // 2. 成功，跳转到首页
+          this.$store.commit('setUser', data.content)
+          // this.$router.push('/')
+          this.$router.push({
+            name: 'home'
+          })
+          this.$message.success('登录成功')
         }
-        // 2. 成功，跳转到首页
-        // this.$router.push('/')
-        this.$router.push({
-          name: 'home'
-        })
-        this.$message.success('登录成功')
       } catch (error) {
-        console.log(error)
+        console.log('登录失败', error)
       }
       this.isLoginLoading = false
     }
