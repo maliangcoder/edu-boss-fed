@@ -3,7 +3,6 @@
 */
 import request from '@/utils/request'
 import qs from 'qs'
-
 interface User {
   phone: string
   password: string
@@ -20,5 +19,15 @@ export const login = (data: User) => {
     */
     // headers: { 'content-type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(data)
+  })
+}
+
+/**
+ * 用户相关信息
+*/
+export const getUserInfo = () => {
+  return request({
+    url: '/front/user/getInfo',
+    method: 'GET'
   })
 }
