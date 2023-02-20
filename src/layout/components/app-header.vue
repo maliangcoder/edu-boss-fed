@@ -13,7 +13,7 @@
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item>{{ userInfo.userName }}</el-dropdown-item>
-        <el-dropdown-item divided>退出</el-dropdown-item>
+        <el-dropdown-item divided @click.native="handleLogout">退出</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -32,11 +32,29 @@ export default Vue.extend({
   },
   created() {
     this.loadUserInfo()
+    this.loadUserInfo()
+    this.loadUserInfo()
   },
   methods: {
     async loadUserInfo() {
       const { data } = await getUserInfo()
       this.userInfo = data.content
+    },
+    handleLogout() {
+      this.$confirm('确认退出吗？', '退出提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.commit('setUser', null)
+
+        this.$router.push({
+          name: 'login'
+        })
+        this.$message.success('退出成功')
+      }).catch(() => {
+        this.$message.info('已取消退出')
+      })
     }
   }
 })
