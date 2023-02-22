@@ -1,6 +1,13 @@
 <template>
   <div>
-    菜单管理
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <el-button @click="$router.push({ name: 'menu-create' })">操作菜单</el-button>
+      </div>
+      <div v-for="o in 4" :key="o" class="text item">
+        {{ '列表内容 ' + o }}
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -8,10 +15,8 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'Menu'
+  name: 'MenuIndex'
 })
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

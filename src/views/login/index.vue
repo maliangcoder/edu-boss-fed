@@ -54,10 +54,11 @@ export default Vue.extend({
         if (data.state !== 1) {
           this.$message.error(data.message)
         } else {
-          // 2. 成功，跳转到首页
+          // 2. 成功，更新Vuex容器中的 setUser
           this.$store.commit('setUser', data.content)
           // this.$router.push('/')
 
+          // 重定向的之前请求401的页面
           this.$router.push(this.$route.query.redirect as string || '/')
 
           // this.$router.push({
