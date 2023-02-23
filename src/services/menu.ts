@@ -1,5 +1,5 @@
 /**
- * 用户相关请求模块
+ *菜单相关请求模块
 */
 import request from '@/utils/request'
 
@@ -13,12 +13,28 @@ export const createOrUpdateMenu = (data: any) => {
 }
 
 // 获取一级菜单
-export const getEditMenuInfo = (id = -1) => {
+export const getEditMenuInfo = (id: number | string = -1) => {
   return request({
     method: 'GET',
     url: '/boss/menu/getEditMenuInfo',
     params: {
       id
     }
+  })
+}
+
+// 获取所有菜单
+export const getAllMenus = () => {
+  return request({
+    method: 'GET',
+    url: '/boss/menu/getAll'
+  })
+}
+
+// 删除菜单
+export const deleteMenu = (id: number) => {
+  return request({
+    method: 'DELETE',
+    url: `/boss/menu/${id}`
   })
 }

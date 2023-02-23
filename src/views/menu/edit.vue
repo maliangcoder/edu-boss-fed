@@ -1,6 +1,6 @@
 <template>
-  <div class="menu-create">
-    <create-or-edit />
+  <div>
+    <create-or-edit :is-edit="true" />
   </div>
 </template>
 
@@ -8,15 +8,16 @@
 import Vue from 'vue'
 import CreateOrEdit from './components/CreateOrEdit.vue'
 export default Vue.extend({
-  name: 'MenuCreate',
+  name: 'menu-edit',
   components: {
     CreateOrEdit
   },
   data() {
-    return {}
+    return {
+    }
   },
-
-  methods: {}
+  methods: {
+  }
 })
 </script>
 
