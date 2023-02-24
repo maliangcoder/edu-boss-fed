@@ -2,12 +2,12 @@
   <div>
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form :inline="true" :model="form" class="demo-form-inline">
           <el-form-item label="审批人">
-            <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+            <el-input v-model="form.user" placeholder="审批人"></el-input>
           </el-form-item>
           <el-form-item label="活动区域">
-            <el-select v-model="formInline.region" placeholder="活动区域">
+            <el-select v-model="form.region" placeholder="活动区域">
               <el-option label="区域一" value="shanghai"></el-option>
               <el-option label="区域二" value="beijing"></el-option>
             </el-select>
@@ -33,6 +33,10 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="form.current"
+        :page-sizes="[5, 10, 20, 50]" :page-size="form.size" layout="total, sizes, prev, pager, next, jumper"
+        :total="totalCount">
+      </el-pagination>
     </el-card>
   </div>
 </template>
@@ -46,10 +50,13 @@ export default Vue.extend({
   data() {
     return {
       resouces: [], // 资源列表
-      formInline: {
+      form: {
         user: '',
-        region: ''
-      }
+        region: '',
+        current: 1,
+        size: 10
+      },
+      totalCount: 0
     }
   },
   created() {
@@ -57,8 +64,12 @@ export default Vue.extend({
   },
   methods: {
     async loadResources() {
-      const { data } = await getResourcePages({})
+      const { data } = await getResourcePages({
+        current: this.form.current,
+        size: this.form.size
+      })
       this.resouces = data.data.records
+      this.totalCount = data.data.total
     },
     onSubmit() {
       console.log('submit!')
@@ -68,6 +79,15 @@ export default Vue.extend({
     },
     handleDelete() {
       console.log('handleDelete')
+    },
+    handleSizeChange(val: number) {
+      this.form.size = val
+      this.form.current = 1
+      this.loadResources()
+    },
+    handleCurrentChange(val: number) {
+      this.form.current = val
+      this.loadResources()
     }
   }
 })
