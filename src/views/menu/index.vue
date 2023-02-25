@@ -60,6 +60,8 @@ export default Vue.extend({
         if (data.code === '000000') {
           this.$message.success('删除成功')
           this.loadAllMenus()
+        } else {
+          this.$message.error(data.mesg)
         }
       }).catch(() => {
         this.$message.info('已取消删除操作')

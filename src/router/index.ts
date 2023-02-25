@@ -89,6 +89,12 @@ const routes: Array<RouteConfig> = [
         path: '/menu/:id/edit',
         name: 'menu-edit',
         component: () => import(/* webpackChunkName: 'menu-create-edit' */ '@/views/menu/edit.vue')
+      },
+      {
+        path: '/role/:roleId/alloca-menu',
+        name: 'alloca-menu',
+        component: () => import(/* webpackChunkName: 'alloca-menu' */ '@/views/role/alloca-menu.vue'),
+        props: true
       }
     ]
   },

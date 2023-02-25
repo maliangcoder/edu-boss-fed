@@ -38,3 +38,35 @@ export const deleteMenu = (id: number) => {
     url: `/boss/menu/${id}`
   })
 }
+
+// 获取所有菜单并按层级展示
+export const getMenuNodeList = () => {
+  return request({
+    method: 'GET',
+    url: '/boss/menu/getMenuNodeList'
+  })
+}
+
+// 角色分配菜单
+interface dataType {
+  roleId: number | string
+  menuIdList: Array<number>
+}
+export const allocateRoleMenus = (data: dataType) => {
+  return request({
+    method: 'POST',
+    url: '/boss/menu/allocateRoleMenus',
+    data
+  })
+}
+
+// 获取角色分配的菜单
+export const getRoleMenus = (roleId: number | string) => {
+  return request({
+    method: 'GET',
+    url: '/boss/menu/getRoleMenus',
+    params: {
+      roleId
+    }
+  })
+}
