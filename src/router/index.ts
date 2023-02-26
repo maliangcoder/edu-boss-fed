@@ -95,6 +95,12 @@ const routes: Array<RouteConfig> = [
         name: 'alloca-menu',
         component: () => import(/* webpackChunkName: 'alloca-menu' */ '@/views/role/alloca-menu.vue'),
         props: true
+      },
+      {
+        path: '/role/:roleId/alloca-resource',
+        name: 'alloca-resource',
+        component: () => import(/* webpackChunkName: 'alloca-resource' */ '@/views/role/alloca-resource.vue'),
+        props: true
       }
     ]
   },

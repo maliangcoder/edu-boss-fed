@@ -50,11 +50,17 @@ export default Vue.extend({
   methods: {
     async loadRoleMenus () {
       const { data } = await getRoleMenus(this.roleId)
-      this.getCheckedKeys(data.data)
+      const list = data.data.map((item: any) => {
+        return {
+          ...item,
+          father: true
+        }
+      })
+      this.getCheckedKeys(list)
     },
     getCheckedKeys (menus: any) {
       menus.forEach((menu: any) => {
-        if (menu.selected) {
+        if (menu.selected && !menu.father) {
           /**
            * 此处若用数组的 push 方法，页面不会刷新，因为Vue不会监听到数组的变化，有两种办法可以解决
            * 1. 使用 Vue 提供的强制更新方法 this.$nextTick()

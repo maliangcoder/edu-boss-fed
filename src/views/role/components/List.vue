@@ -27,7 +27,7 @@
           <template slot-scope="scope">
             <el-button type="text"
               @click="$router.push({ name: 'alloca-menu', params: { roleId: scope.row.id } })">分配菜单</el-button>
-            <el-button type="text">分配资源</el-button>
+            <el-button type="text" @click="$router.push({ name: 'alloca-resource',params: { roleId: scope.row.id } })">分配资源</el-button>
             <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
             <el-button type="text" @click="handleDeleteRole(scope.row)">删除</el-button>
           </template>

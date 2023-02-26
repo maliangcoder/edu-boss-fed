@@ -28,3 +28,27 @@ export const deleteResource = (id: number) => {
     url: `/boss/resource/${id}`
   })
 }
+
+// 获取角色拥有的资源
+export const getRoleResources = (roleId: number | string) => {
+  return request({
+    method: 'GET',
+    url: '/boss/resource/getRoleResources',
+    params: {
+      roleId
+    }
+  })
+}
+
+// 角色分配资源
+interface dateType {
+  roleId: number | string
+  resourceIdList: Array<number>
+}
+export const allocateRoleResources = (data: dateType) => {
+  return request({
+    method: 'POST',
+    url: '/boss/resource/allocateRoleResources',
+    data
+  })
+}
