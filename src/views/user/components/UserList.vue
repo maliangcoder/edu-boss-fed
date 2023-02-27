@@ -161,7 +161,7 @@ export default Vue.extend({
     async handleAllocateRoles() {
       const { data } = await allocateUserRoles({
         userId: (this.currentUser as any).id,
-        roleList: this.roleIdList
+        roleIdList: this.roleIdList
       })
       if (data.code === '000000') {
         this.$message.success('角色分配成功')
