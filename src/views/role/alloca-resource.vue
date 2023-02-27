@@ -51,7 +51,7 @@ export default Vue.extend({
     async loadResourceNodes() {
       const { data } = await getRoleResources(this.roleId)
       this.resources = data.data
-      const list: any = data.data.map((item:any) => {
+      const list = data.data.map((item:any) => {
         return {
           ...item,
           father: true
@@ -71,7 +71,6 @@ export default Vue.extend({
           this.getCheckedKeys(resource.resourceList)
         }
       })
-      console.log(this.checkedKeys, '123')
     },
     async onSave() {
       const resourceIdList = (this.$refs['resource-tree'] as Tree).getCheckedKeys()

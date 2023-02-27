@@ -31,3 +31,21 @@ export const getUserInfo = () => {
     method: 'GET'
   })
 }
+
+// 获取用户列表
+export const getUserPages = (data: any) => {
+  return request({
+    method: 'POST',
+    url: '/boss/user/getUserPages',
+    data
+  })
+}
+
+// 用户分配角色
+export const allocateUserRoles = (data: any) => {
+  return request({
+    method: 'POST',
+    url: '/boss/role/allocateUserRoles',
+    data
+  })
+}

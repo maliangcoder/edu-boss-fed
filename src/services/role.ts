@@ -36,3 +36,19 @@ export const deleteRole = (id: number | string) => {
     url: `/boss/role/${id}`
   })
 }
+
+// 获取所有角色
+export const getAllRoles = () => {
+  return request({
+    method: 'GET',
+    url: '/boss/role/all'
+  })
+}
+
+// 查询用户角色
+export const getUserRole = (userId: string | number) => {
+  return request({
+    method: 'GET',
+    url: `/boss/role/user/${userId}`
+  })
+}
