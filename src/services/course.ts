@@ -11,3 +11,12 @@ export const getQueryCourses = (data: any) => {
     data
   })
 }
+
+// 课程上下架
+export const changeCourseStatus = (params: any) => {
+  return request({
+    method: 'GET',
+    url: '/boss/course/changeState',
+    params
+  })
+}

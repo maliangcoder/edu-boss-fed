@@ -15,6 +15,9 @@
           <el-form-item>
             <el-button type="primary" :disabled="isLoading" @click="onSubmit">查询</el-button>
           </el-form-item>
+          <el-button style="float: right;" size="small" type="primary"
+            @click="$router.push({name:'course-create'})"
+          >添加课程</el-button>
         </el-form>
       </div>
       <div>
@@ -34,11 +37,21 @@
               <el-switch
                 v-model="scope.row.status"
                 active-color="#13ce66"
-                inactive-color="#ff4949">
+                inactive-color="#ff4949"
+                :active-value="1"
+                :inactive-value="0"
+                :disabled="scope.row.isStatusLoading"
+                @change="onChangeStatus(scope.row)"
+                >
               </el-switch>
             </template>
            </el-table-column>
-           <el-table-column label="操作"></el-table-column>
+           <el-table-column label="操作">
+            <template>
+              <el-button size="small">编辑</el-button>
+              <el-button size="small">内容管理</el-button>
+            </template>
+           </el-table-column>
         </el-table>
         <el-pagination
           @size-change="handleSizeChange"
@@ -58,7 +71,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { getQueryCourses } from '@/services/course'
+import { getQueryCourses, changeCourseStatus } from '@/services/course'
 
 export default Vue.extend({
   name: 'CourseList',
@@ -82,11 +95,26 @@ export default Vue.extend({
     async loadQueryCourses() {
       this.isLoading = true
       const { data } = await getQueryCourses(this.form)
+      data.data.records.forEach((item:any) => {
+        item.isStatusLoading = false
+      })
       this.courseList = data.data.records
       this.countTotal = data.data.total
       this.isLoading = false
     },
     onSubmit() {
+      this.loadQueryCourses()
+    },
+    async onChangeStatus(course: any) {
+      course.isStatusLoading = true
+      const { data } = await changeCourseStatus({
+        courseId: course.id,
+        status: course.status
+      })
+      if (data.code === '000000') {
+        this.$message.success(`${course.status ? '上架' : '下架'}成功`)
+      }
+      course.isStatusLoading = false
       this.loadQueryCourses()
     },
     handleSizeChange(val:number) {
