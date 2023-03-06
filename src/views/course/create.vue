@@ -13,8 +13,24 @@
           </el-step>
         </el-steps>
       </div>
-      <el-form>
-        <div v-show="activeStep === 0">基本信息</div>
+      <el-form label-width="80px">
+        <div v-show="activeStep === 0">
+          <el-form-item label="课程名称">
+            <el-input></el-input>
+          </el-form-item>
+          <el-form-item label="课程简介">
+            <el-input></el-input>
+          </el-form-item>
+          <el-form-item label="课程概述">
+            <el-input></el-input>
+          </el-form-item>
+          <el-form-item label="讲师姓名">
+            <el-input></el-input>
+          </el-form-item>
+          <el-form-item label="课程排序">
+            <el-input-number></el-input-number>
+          </el-form-item>
+        </div>
         <div v-show="activeStep === 1">课程封面</div>
         <div v-show="activeStep === 2">销售信息</div>
         <div v-show="activeStep === 3">秒杀活动</div>
