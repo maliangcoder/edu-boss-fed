@@ -2,7 +2,7 @@
   <div class="course-list">
     <el-card>
       <div slot="header">
-        <el-form size="small" :inline="true" :model="form" class="demo-form-inline">
+        <el-form size="small" :inline="true" ref="form" :model="form" class="demo-form-inline">
           <el-form-item label="课程名称">
             <el-input v-model="form.courseName" placeholder="请输入课程名称"></el-input>
           </el-form-item>
@@ -14,6 +14,7 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" :disabled="isLoading" @click="onSubmit">查询</el-button>
+            <el-button type="" :disabled="isLoading" @click="onReset">重置</el-button>
           </el-form-item>
           <el-button style="float: right;" size="small" type="primary"
             @click="$router.push({name:'course-create'})"
@@ -72,6 +73,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { getQueryCourses, changeCourseStatus } from '@/services/course'
+import { Form } from 'element-ui'
 
 export default Vue.extend({
   name: 'CourseList',
@@ -103,6 +105,10 @@ export default Vue.extend({
       this.isLoading = false
     },
     onSubmit() {
+      this.loadQueryCourses()
+    },
+    onReset() {
+      (this.$refs.form as Form).resetFields()
       this.loadQueryCourses()
     },
     async onChangeStatus(course: any) {
