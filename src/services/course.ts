@@ -32,12 +32,23 @@ export const saveOrUpdateCourse = (data: any) => {
 }
 
 // 上传/更新课程图片
-export const uploadCourseImage = (data: any, onUploadProgress: (progressEvent: AxiosProgressEvent) => void) => {
+export const uploadCourseImage = (data: any, onUploadProgress?: (progressEvent: AxiosProgressEvent) => void) => {
   return request({
     method: 'POST',
     url: '/boss/course/upload',
     data,
     // html5 新增的上传响应事件 progress
     onUploadProgress
+  })
+}
+
+// 通过课程Id获取课程信息
+export const getCourseById = (courseId: number | string) => {
+  return request({
+    method: 'GET',
+    url: '/boss/course/getCourseById',
+    params: {
+      courseId
+    }
   })
 }

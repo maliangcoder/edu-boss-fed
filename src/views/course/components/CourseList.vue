@@ -48,8 +48,16 @@
             </template>
            </el-table-column>
            <el-table-column label="操作">
-            <template>
-              <el-button size="small">编辑</el-button>
+            <template slot-scope="scope">
+              <el-button
+                size="small"
+                @click="$router.push({
+                  name: 'course-editor',
+                  params: {
+                    courseId: scope.row.id
+                  }
+                })"
+              >编辑</el-button>
               <el-button size="small">内容管理</el-button>
             </template>
            </el-table-column>
