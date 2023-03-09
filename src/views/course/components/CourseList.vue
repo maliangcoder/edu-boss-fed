@@ -3,10 +3,10 @@
     <el-card>
       <div slot="header">
         <el-form size="small" :inline="true" ref="form" :model="form" class="demo-form-inline">
-          <el-form-item label="课程名称">
+          <el-form-item label="课程名称" prop="courseName">
             <el-input v-model="form.courseName" placeholder="请输入课程名称"></el-input>
           </el-form-item>
-          <el-form-item label="状态">
+          <el-form-item label="状态" prop="status">
             <el-select v-model="form.status" placeholder="请输入查询状态">
               <el-option label="启用" :value="1"></el-option>
               <el-option label="禁用" :value="0"></el-option>
