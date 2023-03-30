@@ -1,21 +1,21 @@
 <template>
   <div class="header">
     <el-breadcrumb>
-      <el-breadcrumb-item
-        v-for="item in routes"
-        :key="item.path"
-      >{{ item.meta.title }}</el-breadcrumb-item>
+      <el-breadcrumb-item v-for="item in routes" :key="item.path">{{ item.meta.title }}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-dropdown>
-      <span class="el-dropdown-link">
-        <el-avatar :size="30" :src="userInfo.portrait || imgUrl"></el-avatar><i
-          class="el-icon-arrow-down el-icon--right"></i>
-      </span>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>{{ userInfo.userName }}</el-dropdown-item>
-        <el-dropdown-item divided @click.native="handleLogout">退出</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+    <div style="display: flex; align-items: center;">
+      <i class="el-icon-full-screen" style="margin-right: 10px;cursor: pointer;" @click="handleToggleFullScreen"></i>
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          <el-avatar :size="30" :src="userInfo.portrait || imgUrl"></el-avatar><i
+            class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>{{ userInfo.userName }}</el-dropdown-item>
+          <el-dropdown-item divided @click.native="handleLogout">退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
@@ -58,6 +58,15 @@ export default Vue.extend({
       }).catch(() => {
         this.$message.info('已取消退出')
       })
+    },
+    handleToggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen()
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
+        }
+      }
     }
   }
 })
