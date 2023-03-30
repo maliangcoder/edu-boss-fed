@@ -16,13 +16,17 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     component: Layout,
+    meta: {
+      title: '首页'
+    },
     children: [
       {
         path: '', // path为空表示默认子路由
         name: 'home',
         component: () => import(/* webpackChunkName: 'home' */ '@/views/home/index.vue'),
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          title: '首页'
         }
       },
 
@@ -31,7 +35,8 @@ const routes: Array<RouteConfig> = [
         name: 'advert',
         component: () => import(/* webpackChunkName: 'advert' */ '@/views/advert/index.vue'),
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          title: '广告列表'
         }
       },
       {
@@ -39,7 +44,8 @@ const routes: Array<RouteConfig> = [
         name: 'advert-space',
         component: () => import(/* webpackChunkName: 'advert-space' */ '@/views/advert-space/index.vue'),
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          title: '广告位列表'
         }
       },
       {
@@ -47,7 +53,8 @@ const routes: Array<RouteConfig> = [
         name: 'course',
         component: () => import(/* webpackChunkName: 'course' */ '@/views/course/index.vue'),
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          title: '课程管理'
         }
       },
       {
@@ -77,7 +84,8 @@ const routes: Array<RouteConfig> = [
         name: 'menu',
         component: () => import(/* webpackChunkName: 'menu' */ '@/views/menu/index.vue'),
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          title: '菜单管理'
         }
       },
       {
@@ -85,7 +93,8 @@ const routes: Array<RouteConfig> = [
         name: 'resouce',
         component: () => import(/* webpackChunkName: 'resource' */ '@/views/resouce/index.vue'),
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          title: '资源管理'
         }
       },
       {
@@ -93,7 +102,8 @@ const routes: Array<RouteConfig> = [
         name: 'role',
         component: () => import(/* webpackChunkName: 'role' */ '@/views/role/index.vue'),
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          title: '角色管理'
         }
       },
       {
@@ -101,7 +111,8 @@ const routes: Array<RouteConfig> = [
         name: 'user',
         component: () => import(/* webpackChunkName: 'user' */ '@/views/user/index.vue'),
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          title: '用户管理'
         }
       },
       {
